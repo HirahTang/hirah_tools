@@ -7,3 +7,5 @@ eval_machine = eval(pdb_pred, pdb_target)
 
 print(eval_machine.lddt())
 print(eval_machine.seq_len())
+print(eval_machine.get_pdb_chain())
+print(eval_machine.tmalign())
