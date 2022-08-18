@@ -6,7 +6,7 @@ from Bio.PDB import PDBParser
 from Bio.PDB.PDBIO import PDBIO
 import sys
 sys.path.append('..')
-from utils import datatool as dtool
+#from utils import datatool as dtool
 
 class eval:
     def __init__(self, pdb_a, pdb_b, 
@@ -28,6 +28,7 @@ class eval:
         Return the lddt score of the predicted pdb to the target pdb
         Output: lddt score, lddt report
         """
+        
         execute_command = f"{self.lddt_path} -c {self.pdb_a} {self.pdb_b}"
         report = subprocess.check_output(execute_command, shell = True).decode("utf-8")
         prefix = "Global LDDT score: "
@@ -64,7 +65,7 @@ class eval:
         """
 
         pdb_info = self.pdb_a.split('/')[-1].split('.')[0].split('_')
-        return pdb_info[0], pdb_info[2]
+        return pdb_info[0], pdb_info[2].strip(',')
 
     def seq_from_pdb(self, structure):
         
@@ -90,17 +91,17 @@ class eval:
 
         return seq_out, len(seq_out)
 
-    def parse_matrix(rotation_matrix_path):
-        START_LINE = 2
-        END_LINE = 5
-        lines = dtool.read_lines(rotation_matrix_path)
-        matrix = np.array(
-            [
-                [float(item) for item in line.split()[1:]]
-                for line in lines[START_LINE:END_LINE]
-            ]
-        )
-        return matrix
+    #def parse_matrix(rotation_matrix_path):
+    #    START_LINE = 2
+    #    END_LINE = 5
+    #    lines = dtool.read_lines(rotation_matrix_path)
+    #    matrix = np.array(
+    #        [
+    #            [float(item) for item in line.split()[1:]]
+    #            for line in lines[START_LINE:END_LINE]
+    #        ]
+    #    )
+    #    return matrix
 
     def parse_scores(self, result_path):
         """
