@@ -90,7 +90,7 @@ class eval:
                     try:
                         seq.append(d3to1[residue.resname])
                     except:
-                        continue
+                        seq.append('X')
                 seq_out = ''.join(seq)
 
         return seq_out, len(seq_out)
