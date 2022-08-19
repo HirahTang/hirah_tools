@@ -3,7 +3,7 @@ from Bio.PDB import PDBList
 import os
 import subprocess
 from Bio.PDB import PDBParser
-from Bio.PDB.PDBIO import PDBIO
+
 import sys
 sys.path.append('..')
 #from utils import datatool as dtool
@@ -21,8 +21,12 @@ class eval:
 
         self.pdb_a_name = self.pdb_a.split('/')[-1].split('.')[0]
         self.pdb_b_name = self.pdb_b.split('/')[-1].split('.')[0]
-        
 
+        self.seq_a, self.seq_a_len, self.seq_b, self.seq_b_len = self.seq_len()
+
+        
+        
+ 
     def lddt(self):
         """
         Return the lddt score of the predicted pdb to the target pdb
