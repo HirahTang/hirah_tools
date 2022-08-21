@@ -149,7 +149,7 @@ class eval:
         "rmsd": result["rmsd"],
         "identity": result["identity"],
         "tm_score": result["tm_score"],
-        #"report":tmalign_report
+        "report":tmalign_report
         }
         #matrix = parse_matrix(path_rotation)
 
