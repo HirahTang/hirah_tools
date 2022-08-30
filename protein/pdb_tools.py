@@ -26,6 +26,20 @@ class alignment:
             print(chain.get_id())
         io.set_structure(data[0][chain_id])
         io.save(f'{self.orphan_ref_path}/{pdb_id}_{chain_id}.pdb')
+        return data.header['release_date']
+        
+    def get_header_info(self, pdb_file):
+        """
+        Retrieve the header information of PDBs (e.g. release_date)
+        Tips: The PDB need to be downloaded from PDB.org, self-generated PDB files
+        are not applicable for this function
+        Input: the address of the pdb
+        """
+        parser = PDBParser()
+        data = parser.get_structure("test", pdb_file)
+        return data.header['release_date']
+
+
 
     def get_overlap(s1, s2):
         

@@ -35,6 +35,7 @@ result_df = {"seq_cat":[],
              "tm_align_ref_omegafold":[],
              "align_length_omegafold":[],
              "rmsd_omegafold":[],
+             "release_date":[]
              }
 
 
@@ -48,6 +49,7 @@ def desire_chain(pdb_id, chain_id):
         print(chain.get_id())
     io.set_structure(data[0][chain_id])
     io.save(f'{orphan_ref_path}/{pdb_id}_{chain_id}.pdb')
+    release_date = data.header['release_date']
     #return data[0][chain_id]
 
 for orig in seq_list[1:]:
@@ -81,6 +83,7 @@ for orig in seq_list[1:]:
             result_df['tm_align_ref_omegafold'].append('NA')
             result_df['align_length_omegafold'].append('NA')
             result_df['rmsd_omegafold'].append('NA')
+            result_df['release_date'].append('NA')
 
             continue
         
@@ -89,7 +92,7 @@ for orig in seq_list[1:]:
         #--
         
         try:
-            alignment_tool.desire_chain(pdb_id, chain_id)
+            release_date = alignment_tool.desire_chain(pdb_id, chain_id)
 
             alignment_tool.align(pdb_id, chain_id, record)
 
@@ -111,6 +114,7 @@ for orig in seq_list[1:]:
             result_df['tm_align_ref_omegafold'].append('NA')
             result_df['align_length_omegafold'].append('NA')
             result_df['rmsd_omegafold'].append('NA')
+            result_df['release_date'].append('NA')
 
             continue
         
@@ -127,6 +131,7 @@ for orig in seq_list[1:]:
         result_df['pdb_ref'].append(pdb_ref)
         result_df['seq_pred'].append(record.seq)
         result_df['seq_pred_len'].append(len(record.seq))
+        result_df['release_date'].append(release_date)
         try:
             eq_pred, seq_pred_len, seq_ref, seq_ref_len = eval_machine.seq_len()
             result_df['seq_ref'].append(seq_ref)
@@ -169,4 +174,4 @@ for orig in seq_list[1:]:
 
 print(result_df)
 df = pd.DataFrame(data = result_df)
-df.to_csv('/home/tanghan/OmegaFold/orphan_eval.csv')
+df.to_csv('/home/tanghan/OmegaFold/orphan_eval_2.csv')
